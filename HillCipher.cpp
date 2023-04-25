@@ -1,4 +1,5 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<stdlib.h>
 using namespace std;
 
 int key[3][3];
@@ -9,10 +10,10 @@ int det(int m[3][3],int n){
     int res=0;
     if(n==2)
       res=(m[0][0]*m[1][1]-m[1][0]*m[0][1]);
-    else 
+    else if(n==3)
     res = m[0][0]*(m[1][1]*m[2][2]-m[2][1]*m[1][2]) - m[0][1]*(m[1][0]*m[2][2]-m[2][0]*m[1][2]) + m[0][2]*(m[1][0]*m[2][1]-m[2][0]*m[1][1]);
 
-    return res;
+    return mod26(res);
 }
 
 int detinv(int a,int m){
@@ -20,13 +21,13 @@ int detinv(int a,int m){
         if(((a%m)*(i%m))% m ==1)
             return i;
     }
-    return 0;
+    
 }
 
 void multiplymatrix(int P[1000][3],int rowP,int colP,int C[1000][3],int rowC,int colC,int r[1000][3]){
     for(int i=0;i<rowP;i++){
         for(int j=0;j<colC;j++){
-            for(int k=0;k<colP;k++){
+            for(int k=0;k<rowC;k++){
                 r[i][j]+=(P[i][k]*C[k][j]);
             }
             r[i][j] = mod26(r[i][j]);
@@ -39,6 +40,7 @@ void findinv(int m[3][3] , int n , int m_inverse[3][3] )
 
 	int a = det(m , n); // findDet(matrix , order_of_matrix)
 	int b = detinv(a,26);
+    cout<<b<<endl;
 
 	if(n==2)
 	{
